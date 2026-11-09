@@ -28,34 +28,102 @@
     .check-item input{margin-top:3px;accent-color:#34d399}
     .check-item.is-checked{border-color:rgba(52,211,153,.28);background:rgba(16,185,129,.06);color:#6ee7b7}
     .check-item.is-checked span{text-decoration:line-through;text-decoration-color:rgba(110,231,183,.6)}
+    .map-container{overflow:hidden;border-radius:16px;box-shadow:0 20px 45px rgba(0,0,0,.35)}
+    .map-container iframe{display:block;width:100%;height:450px;border:0}
+    @media(max-width:640px){.map-container iframe{height:340px}}
     .modal-bg{background:rgba(2,6,23,.86);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
     .modal-bg.flex>div{animation:modal-in .2s ease-out}
     @keyframes modal-in{from{opacity:0;transform:scale(.98) translateY(4px)}to{opacity:1;transform:scale(1) translateY(0)}}
     .gradient{color:#fff}
     .counter{font-variant-numeric:tabular-nums}
+    .site-nav{position:sticky;top:0;z-index:30;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(11,15,25,.8);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+    .nav-link{position:relative;padding:8px 0;color:#aab4c7;transition:color .2s ease}
+    .nav-link:after{position:absolute;right:0;bottom:0;left:0;height:2px;border-radius:999px;background:linear-gradient(90deg,#818cf8,#67e8f9);content:"";transform:scaleX(0);transform-origin:left;transition:transform .2s ease}
+    .nav-link:hover,.nav-link.is-active{color:#f8fafc}
+    .nav-link:hover:after,.nav-link.is-active:after{transform:scaleX(1)}
+    .nav-action{display:inline-flex;min-height:42px;align-items:center;justify-content:center;border:1px solid rgba(165,180,252,.2);background:linear-gradient(115deg,#4f46e5,#3730a3);padding:0 16px;color:#fff;transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+    .nav-action:hover{transform:translateY(-1px);background:linear-gradient(115deg,#6366f1,#4f46e5);box-shadow:0 8px 24px rgba(99,102,241,.25)}
+    .hero-section{position:relative;isolation:isolate;overflow:hidden}
+    .hero-glow{position:absolute;z-index:-1;width:24rem;height:24rem;border-radius:50%;filter:blur(120px);opacity:.25;pointer-events:none}
+    .hero-glow-violet{top:-3rem;left:-5rem;background:#6366f1}
+    .hero-glow-blue{right:-5rem;bottom:-3rem;background:#06b6d4}
+    .hero-badge{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(129,140,248,.3);border-radius:999px;background:linear-gradient(110deg,rgba(79,70,229,.18),rgba(14,165,233,.1));padding:9px 14px;color:#dbeafe;font-size:.72rem;font-weight:700;letter-spacing:.14em;box-shadow:0 0 28px rgba(99,102,241,.14)}
+    .hero-badge-dot{width:7px;height:7px;border-radius:50%;background:#a5b4fc;box-shadow:0 0 12px rgba(165,180,252,.9)}
+    .hero-title{background:linear-gradient(110deg,#fff 8%,#bfdbfe 52%,#c4b5fd 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .hero-cta{min-height:56px;padding:0 26px;box-shadow:0 0 25px rgba(99,102,241,.5);transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+    .hero-cta:hover{transform:translateY(-2px);box-shadow:0 0 36px rgba(99,102,241,.62)}
+    .hero-stat{border-left:1px solid rgba(148,163,184,.2);padding-left:14px}
+    .hero-stat:first-child{border-left:0;padding-left:0}
+    .hero-card{border:1px solid rgba(255,255,255,.1);border-radius:24px;background:rgba(255,255,255,.03);box-shadow:0 28px 80px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.06);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+    .program-card{border:1px solid rgba(148,163,184,.14);border-radius:16px;background:rgba(15,23,42,.48);padding:16px;transition:transform .2s ease,border-color .2s ease,background .2s ease}
+    .program-card:hover{transform:translateY(-3px);border-color:rgba(129,140,248,.38);background:rgba(30,41,59,.55)}
+    @media(prefers-reduced-motion:reduce){.hero-cta,.nav-action,.nav-link:after{transition:none}}
   </style>
 </head>
 <body>
-  <nav class="sticky top-0 z-30 border-b border-slate-800/80 bg-[#0b0f19]/90 backdrop-blur-md">
+  <nav class="site-nav">
     <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4">
-      <a href="#" class="text-sm font-black tracking-[.18em] text-white">46-MAKTAB <span class="hidden text-slate-400 sm:inline">— TA'LIM MASKANI</span></a>
+      <a href="#bosh-sahifa" class="flex items-center gap-3 text-sm font-black tracking-[.12em] text-white">
+        <span class="flex h-10 w-10 items-center justify-center rounded-xl border border-indigo-300/20 bg-indigo-400/10 text-indigo-200">
+          <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6" aria-hidden="true"><path d="M3 10.5 12 4l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-9.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 10h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </span>
+        <span>46-MAKTAB <span class="hidden text-slate-400 sm:inline">— TA'LIM MASKANI</span></span>
+      </a>
       <div class="hidden items-center gap-5 text-sm text-slate-300 xl:flex">
-        <a href="#iqtidorlilar" class="hover:text-white">Iqtidorlilar</a><a href="#hujjatlar" class="hover:text-white">Qabul hujjatlari</a><a href="#kutubxona" class="hover:text-white">Kutubxona</a>
-        <a href="#ustozlar" class="hover:text-white">Ustozlar</a><a href="#status" class="hover:text-white">Ariza holati</a><a href="#murojaat" class="hover:text-white">Murojaat</a>
+        <a href="#iqtidorlilar" class="nav-link">Iqtidorlilar</a><a href="#hujjatlar" class="nav-link">Qabul hujjatlari</a><a href="#kutubxona" class="nav-link">Kutubxona</a>
+        <a href="#ustozlar" class="nav-link">Ustozlar</a><a href="#status" class="nav-link">Ariza holati</a><a href="#murojaat" class="nav-link">Murojaat</a>
       </div>
       <div class="flex items-center gap-2">
         <button type="button" onclick="openLoginModal()" class="rounded-xl px-3 py-2 text-sm font-semibold text-slate-300 hover:text-white">Kirish</button>
-        <button type="button" onclick="openRegisterModal()" class="button rounded-xl px-4 py-2 text-sm font-bold">Ro'yxatdan o'tish</button>
-        <a href="#ariza" class="hidden rounded-xl border border-white/10 px-4 py-2 text-sm font-bold sm:inline-block">Ariza topshirish</a>
+        <button type="button" onclick="openRegisterModal()" class="button nav-action rounded-xl text-sm font-bold">Ro'yxatdan o'tish</button>
+        <a href="#ariza" class="button nav-action hidden rounded-xl text-sm font-bold sm:inline-flex">Ariza topshirish</a>
       </div>
     </div>
   </nav>
 
   {% if messages %}<div class="fixed right-5 top-20 z-50 space-y-3">{% for message in messages %}<div class="rounded-xl border border-emerald-300/30 bg-emerald-500/20 px-5 py-4 text-sm text-emerald-100 shadow-xl">{{ message }}</div>{% endfor %}</div>{% endif %}
   <main>
-    <section class="mx-auto grid max-w-7xl gap-12 px-5 pb-20 pt-24 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
-      <div><p class="font-semibold uppercase tracking-[.2em] text-slate-400">2026/2027 o'quv yili</p><h1 class="mt-5 text-5xl font-black leading-tight sm:text-7xl">Bilimdan katta kelajak sari.</h1><p class="mt-6 max-w-2xl text-lg leading-8 text-slate-400">46-maktab — zamonaviy texnologiyalar, kuchli ustozlar va har bir o'quvchi uchun imkoniyatlar maskani.</p><div class="mt-8 flex flex-wrap gap-4"><a href="#ariza" class="button rounded-xl px-6 py-3 font-bold">Maktabga ariza topshirish</a></div></div>
-      <div class="glass rounded-2xl p-8"><p class="section-label">46 / Future</p><p class="mt-5 text-4xl font-black text-white">Yangi avlod ta'limi</p><div class="mt-10 flex flex-wrap gap-2 text-xs text-slate-300"><span class="rounded-full border border-slate-700/80 bg-slate-900/60 px-3 py-2">IT</span><span class="rounded-full border border-slate-700/80 bg-slate-900/60 px-3 py-2">STEM</span><span class="rounded-full border border-slate-700/80 bg-slate-900/60 px-3 py-2">TILLAR</span><span class="rounded-full border border-slate-700/80 bg-slate-900/60 px-3 py-2">IJOD</span></div></div>
+    <section id="bosh-sahifa" class="hero-section mx-auto grid max-w-7xl gap-12 px-5 pb-20 pt-20 lg:grid-cols-[1.1fr_.9fr] lg:items-center lg:pb-24 lg:pt-24">
+      <div class="hero-glow hero-glow-violet" aria-hidden="true"></div>
+      <div class="hero-glow hero-glow-blue" aria-hidden="true"></div>
+      <div class="relative">
+        <p class="hero-badge"><span class="hero-badge-dot"></span>2026/2027 O'QUV YILI</p>
+        <h1 class="hero-title mt-7 max-w-3xl text-5xl font-black leading-[1.08] tracking-tight sm:text-6xl lg:text-7xl">Bilimdan katta kelajak sari.</h1>
+        <p class="mt-6 max-w-xl text-base leading-7 text-slate-400 sm:text-lg sm:leading-8">46-maktab — zamonaviy texnologiyalar, kuchli ustozlar va har bir o'quvchi uchun yangi imkoniyatlar maskani.</p>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href="#ariza" class="button hero-cta rounded-xl font-bold text-white">Maktabga ariza topshirish <span class="ml-3 text-lg" aria-hidden="true">→</span></a>
+        </div>
+        <div class="mt-10 grid max-w-xl grid-cols-3 gap-3 sm:gap-6">
+          <div class="hero-stat"><p class="text-xl font-bold text-white sm:text-2xl"><span class="counter" data-target="1021">0</span>+</p><p class="mt-1 text-xs leading-5 text-slate-400 sm:text-sm">O'quvchilar</p></div>
+          <div class="hero-stat"><p class="text-xl font-bold text-white sm:text-2xl"><span class="counter" data-target="53">0</span>+</p><p class="mt-1 text-xs leading-5 text-slate-400 sm:text-sm">Malakali ustozlar</p></div>
+          <div class="hero-stat"><p class="text-xl font-bold text-white sm:text-2xl"><span class="counter" data-target="98">0</span>%</p><p class="mt-1 text-xs leading-5 text-slate-400 sm:text-sm">OTMga kirish</p></div>
+        </div>
+      </div>
+      <div class="hero-card relative p-6 sm:p-8 lg:p-9">
+        <div class="flex items-start justify-between gap-4">
+          <div><p class="section-label">46 / FUTURE</p><h2 class="mt-5 text-3xl font-bold text-white sm:text-4xl">Yangi avlod ta'limi</h2><p class="mt-3 max-w-sm text-sm leading-6 text-slate-400">Qiziqishlarni kashf eting. Bilimni amaliyot bilan mustahkamlang.</p></div>
+          <div class="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-indigo-300/20 bg-indigo-400/10 text-indigo-200 sm:flex" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" class="h-6 w-6"><path d="M12 3 14.2 9.8 21 12l-6.8 2.2L12 21l-2.2-6.8L3 12l6.8-2.2L12 3Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="mt-7 grid grid-cols-2 gap-3">
+          <div class="program-card">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-400/10 text-cyan-200"><svg viewBox="0 0 24 24" fill="none" class="h-5 w-5"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-2-12-4 14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <p class="mt-4 font-semibold text-white">IT</p><p class="mt-1 text-xs leading-5 text-slate-400">Dasturlash va texnologiya</p>
+          </div>
+          <div class="program-card">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-400/10 text-violet-200"><svg viewBox="0 0 24 24" fill="none" class="h-5 w-5"><path d="m12 3 2.2 6.8L21 12l-6.8 2.2L12 21l-2.2-6.8L3 12l6.8-2.2L12 3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+            <p class="mt-4 font-semibold text-white">STEM</p><p class="mt-1 text-xs leading-5 text-slate-400">Fan, muhandislik va ijod</p>
+          </div>
+          <div class="program-card">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-400/10 text-blue-200"><svg viewBox="0 0 24 24" fill="none" class="h-5 w-5"><path d="M4 5h16M12 5c0 7-3 11-7 14m3-8c2.5 3 5.5 5 9 6m-2-12 4 12m-1-3h-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <p class="mt-4 font-semibold text-white">Tillar</p><p class="mt-1 text-xs leading-5 text-slate-400">Dunyo bilan muloqot</p>
+          </div>
+          <div class="program-card">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-400/10 text-amber-200"><svg viewBox="0 0 24 24" fill="none" class="h-5 w-5"><path d="m12 3 2.4 5.6L20 11l-5.6 2.4L12 19l-2.4-5.6L4 11l5.6-2.4L12 3Zm7 13 .9 2.1L22 19l-2.1.9L19 22l-.9-2.1L16 19l2.1-.9L19 16Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+            <p class="mt-4 font-semibold text-white">Ijod</p><p class="mt-1 text-xs leading-5 text-slate-400">G'oya va yangi ifodalar</p>
+          </div>
+        </div>
+        <div class="mt-5 flex items-center gap-3 border-t border-white/10 pt-5 text-xs text-slate-400"><span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.65)]"></span>Har bir o'quvchi uchun imkoniyat</div>
+      </div>
     </section>
 
     <section id="yangiliklar" class="mx-auto max-w-7xl px-5 py-14">
@@ -132,7 +200,19 @@
       </div>
     </section>
 
-    <section id="xarita" class="mx-auto max-w-7xl px-5 py-14"><div class="mb-6 flex flex-wrap items-end justify-between gap-4"><div><p class="section-label">Manzil</p><h2 class="mt-3 text-3xl font-black">46-maktab xaritada</h2><p class="mt-2 text-slate-400">{% if map_info %}{{ map_info.address }}{% else %}Andijon hududi{% endif %}</p></div><a class="button rounded-xl px-5 py-3 font-bold" href="https://www.google.com/maps/search/?api=1&query=40.750000,72.350000" target="_blank" rel="noopener noreferrer">Google Xaritada ochish ↗</a></div><div class="glass overflow-hidden rounded-3xl p-2 shadow-2xl"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.6853!2d72.35!3d40.75!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDQ1JzAwLjAiTiA3MsKwMjEnMDAuMCJF!5e0!3m2!1suz!2s!4v1700000000000" class="h-[360px] w-full rounded-2xl border border-white/10" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="46-maktab Google xaritasi"></iframe></div></section>
+    <section id="xarita" class="mx-auto max-w-7xl px-5 py-14">
+      <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="section-label">Manzil</p>
+          <h2 class="mt-3 text-3xl font-black">46-maktab xaritada</h2>
+          <p class="mt-2 text-slate-400">{% if map_info %}{{ map_info.address }}{% else %}Andijon hududi{% endif %}</p>
+        </div>
+        <a class="button rounded-xl px-5 py-3 font-bold" href="https://www.google.com/maps/search/?api=1&query=40.750000,72.350000" target="_blank" rel="noopener noreferrer">Google Xaritada ochish ↗</a>
+      </div>
+      <div class="map-container glass">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.6853!2d72.35!3d40.75!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDQ1JzAwLjAiTiA3MsKwMjEnMDAuMCJF!5e0!3m2!1suz!2s!4v1700000000000" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="46-maktab Google xaritasi"></iframe>
+      </div>
+    </section>
     <section id="galereya" class="mx-auto max-w-7xl px-5 py-14"><p class="section-label">Maktab hayoti</p><h2 class="mt-3 text-3xl font-black">Galereya</h2><div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">{% for image in gallery %}    <figure class="glass h-full overflow-hidden rounded-3xl p-2">{% if image.image %}<img src="{{ image.image.url }}" class="h-64 w-full object-cover rounded-xl" alt="{{ image.title }}" loading="lazy">{% else %}<div class="flex h-64 items-center justify-center bg-slate-800 text-slate-500">Rasm yuklanmagan</div>{% endif %}<figcaption class="p-4"><h3 class="font-bold">{{ image.title }}</h3>{% if image.description %}<p class="mt-1 text-sm text-slate-400">{{ image.description }}</p>{% endif %}</figcaption></figure>{% empty %}<div class="col-span-full py-8 text-center text-slate-400">Galereya rasmlari tez orada qo'shiladi.</div>{% endfor %}</div></section>
     <footer class="mx-auto max-w-7xl px-5 pb-8 pt-10">
       <div class="glass flex flex-col items-center justify-between gap-5 rounded-3xl px-6 py-6 text-center sm:flex-row sm:text-left">
@@ -188,6 +268,21 @@
     document.querySelectorAll('.check-item input[type="checkbox"]').forEach(checkbox=>{
       checkbox.addEventListener('change',()=>checkbox.closest('.check-item').classList.toggle('is-checked',checkbox.checked));
     });
+    const navLinks=[...document.querySelectorAll('.nav-link')];
+    const navSections=navLinks.map(link=>document.querySelector(link.getAttribute('href'))).filter(Boolean);
+    if('IntersectionObserver' in window){
+      const navObserver=new IntersectionObserver(entries=>{
+        const current=entries.filter(entry=>entry.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+        if(!current)return;
+        navLinks.forEach(link=>{
+          const active=link.getAttribute('href')==='#'+current.target.id;
+          link.classList.toggle('is-active',active);
+          if(active)link.setAttribute('aria-current','location');
+          else link.removeAttribute('aria-current');
+        });
+      },{rootMargin:'-20% 0px -65% 0px',threshold:[0,.1,.25,.5]});
+      navSections.forEach(section=>navObserver.observe(section));
+    }
     document.querySelectorAll('.counter').forEach(counter=>{
       const target=Number(counter.dataset.target)||0;
       const duration=1400;
