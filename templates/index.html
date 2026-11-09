@@ -1,0 +1,205 @@
+{% load static %}
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>46-maktab | Ta'lim maskani</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{color-scheme:dark;scroll-behavior:smooth}
+    body{overflow-x:hidden;background:#0b0f19;color:#e2e8f0;font-family:Inter,ui-sans-serif,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+    .glass{background:rgba(17,24,39,.75);border:1px solid rgba(30,41,59,.8);border-radius:1rem!important;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);transition:transform .2s ease,border-color .2s ease}
+    .glass:hover{border-color:rgba(99,102,241,.4);transform:translateY(-4px)}
+    .button{display:inline-flex;align-items:center;justify-content:center;min-height:50px;background:linear-gradient(115deg,#4338ca,#3730a3);border:1px solid rgba(129,140,248,.2);border-radius:12px;font-weight:600;transition:all .15s ease}
+    .button:hover{background:linear-gradient(115deg,#4f46e5,#4338ca)}
+    .button:active{transform:scale(.98)}
+    .modal-bg button[type="submit"]{min-height:50px;border-radius:12px;background:linear-gradient(115deg,#4338ca,#3730a3);transition:all .15s ease}
+    .modal-bg button[type="submit"]:active{transform:scale(.98)}
+    .lift,.interactive{transition:transform .2s ease,border-color .2s ease}
+    .field,.modal-bg input,.modal-bg select,.modal-bg textarea{display:block;width:100%;height:54px;border:1px solid #1e293b;background:rgba(2,6,23,.55);color:#f8fafc;border-radius:14px;padding:0 16px;outline:0;transition:border-color .15s ease,box-shadow .15s ease}
+    textarea.field,.modal-bg textarea{height:auto;min-height:120px;padding-top:14px;padding-bottom:14px}
+    .field::placeholder,.modal-bg input::placeholder,.modal-bg textarea::placeholder{color:#64748b}
+    .field:focus,.modal-bg input:focus,.modal-bg select:focus,.modal-bg textarea:focus{border-color:#6366f1;box-shadow:0 0 0 2px rgba(99,102,241,.2)}
+    h1,h2{font-weight:700;letter-spacing:-.035em;background:linear-gradient(to right,#fff,#cbd5e1);-webkit-background-clip:text;background-clip:text;color:transparent}
+    h3{font-weight:650;letter-spacing:-.02em;color:#f8fafc}
+    .section-label{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border:1px solid rgba(99,102,241,.3);border-radius:999px;background:rgba(79,70,229,.08);color:#c7d2fe;font-size:.72rem;font-weight:600;letter-spacing:.06em}
+    .check-item{display:flex;align-items:flex-start;gap:12px;border:1px solid rgba(30,41,59,.8);border-radius:14px;background:rgba(2,6,23,.28);padding:14px 16px;color:#cbd5e1;transition:all .2s ease}
+    .check-item input{margin-top:3px;accent-color:#34d399}
+    .check-item.is-checked{border-color:rgba(52,211,153,.28);background:rgba(16,185,129,.06);color:#6ee7b7}
+    .check-item.is-checked span{text-decoration:line-through;text-decoration-color:rgba(110,231,183,.6)}
+    .modal-bg{background:rgba(2,6,23,.86);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+    .modal-bg.flex>div{animation:modal-in .2s ease-out}
+    @keyframes modal-in{from{opacity:0;transform:scale(.98) translateY(4px)}to{opacity:1;transform:scale(1) translateY(0)}}
+    .gradient{color:#fff}
+    .counter{font-variant-numeric:tabular-nums}
+  </style>
+</head>
+<body>
+  <nav class="sticky top-0 z-30 border-b border-slate-800/80 bg-[#0b0f19]/90 backdrop-blur-md">
+    <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4">
+      <a href="#" class="text-sm font-black tracking-[.18em] text-white">46-MAKTAB <span class="hidden text-slate-400 sm:inline">— TA'LIM MASKANI</span></a>
+      <div class="hidden items-center gap-5 text-sm text-slate-300 xl:flex">
+        <a href="#iqtidorlilar" class="hover:text-white">Iqtidorlilar</a><a href="#hujjatlar" class="hover:text-white">Qabul hujjatlari</a><a href="#kutubxona" class="hover:text-white">Kutubxona</a>
+        <a href="#ustozlar" class="hover:text-white">Ustozlar</a><a href="#status" class="hover:text-white">Ariza holati</a><a href="#murojaat" class="hover:text-white">Murojaat</a>
+      </div>
+      <div class="flex items-center gap-2">
+        <button type="button" onclick="openLoginModal()" class="rounded-xl px-3 py-2 text-sm font-semibold text-slate-300 hover:text-white">Kirish</button>
+        <button type="button" onclick="openRegisterModal()" class="button rounded-xl px-4 py-2 text-sm font-bold">Ro'yxatdan o'tish</button>
+        <a href="#ariza" class="hidden rounded-xl border border-white/10 px-4 py-2 text-sm font-bold sm:inline-block">Ariza topshirish</a>
+      </div>
+    </div>
+  </nav>
+
+  {% if messages %}<div class="fixed right-5 top-20 z-50 space-y-3">{% for message in messages %}<div class="rounded-xl border border-emerald-300/30 bg-emerald-500/20 px-5 py-4 text-sm text-emerald-100 shadow-xl">{{ message }}</div>{% endfor %}</div>{% endif %}
+  <main>
+    <section class="mx-auto grid max-w-7xl gap-12 px-5 pb-20 pt-24 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
+      <div><p class="font-semibold uppercase tracking-[.2em] text-slate-400">2026/2027 o'quv yili</p><h1 class="mt-5 text-5xl font-black leading-tight sm:text-7xl">Bilimdan katta kelajak sari.</h1><p class="mt-6 max-w-2xl text-lg leading-8 text-slate-400">46-maktab — zamonaviy texnologiyalar, kuchli ustozlar va har bir o'quvchi uchun imkoniyatlar maskani.</p><div class="mt-8 flex flex-wrap gap-4"><a href="#ariza" class="button rounded-xl px-6 py-3 font-bold">Maktabga ariza topshirish</a></div></div>
+      <div class="glass rounded-2xl p-8"><p class="section-label">46 / Future</p><p class="mt-5 text-4xl font-black text-white">Yangi avlod ta'limi</p><div class="mt-10 flex flex-wrap gap-2 text-xs text-slate-300"><span class="rounded-full border border-slate-700/80 bg-slate-900/60 px-3 py-2">IT</span><span class="rounded-full border border-slate-700/80 bg-slate-900/60 px-3 py-2">STEM</span><span class="rounded-full border border-slate-700/80 bg-slate-900/60 px-3 py-2">TILLAR</span><span class="rounded-full border border-slate-700/80 bg-slate-900/60 px-3 py-2">IJOD</span></div></div>
+    </section>
+
+    <section id="yangiliklar" class="mx-auto max-w-7xl px-5 py-14">
+      <p class="section-label">News & Events</p>
+      <h2 class="mt-3 text-3xl font-black">Maktab yangiliklari va e'lonlar</h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {% for item in news_events %}
+        <article class="glass lift interactive overflow-hidden rounded-3xl">
+          {% if item.image %}<img src="{{ item.image.url }}" class="h-52 w-full object-cover" alt="{{ item.title }}" loading="lazy">{% endif %}
+          <div class="p-6 sm:p-8">
+            <div class="flex items-center justify-between gap-3 text-xs">            <span class="rounded-lg border border-slate-700 bg-slate-800/80 px-3 py-1 text-xs font-medium text-slate-300">{{ item.get_category_display }}</span><time class="text-slate-400">{{ item.date|date:"d.m.Y" }}</time></div>
+            <h3 class="mt-4 text-xl font-bold">{{ item.title }}</h3><p class="mt-2 text-sm leading-6 text-slate-400">{{ item.short_description }}</p>
+          </div>
+        </article>
+        {% empty %}<p class="text-slate-400">Hozircha yangiliklar kiritilmagan.</p>{% endfor %}
+      </div>
+    </section>
+
+    <section id="iqtidorlilar" class="mx-auto max-w-7xl px-5 py-14">
+      <p class="section-label">Yutuqlar va e'tirof</p><h2 class="mt-3 text-3xl font-black">Iqtidorli o'quvchilar reytingi</h2>
+      <p class="mt-3 max-w-2xl text-slate-400">Maktabimizning bilim va izlanishda yuqori natijalarga erishgan o'quvchilari.</p>
+      <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {% for student in top_students %}
+        <article class="glass flex items-start gap-4 rounded-2xl p-5 sm:p-6">
+          {% if student.photo %}<img src="{{ student.photo.url }}" class="h-16 w-16 shrink-0 rounded-2xl border border-slate-700 object-cover" alt="{{ student.full_name }}" loading="lazy">{% else %}<div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-indigo-400/20 bg-indigo-500/10 text-2xl font-semibold text-indigo-200">{{ student.full_name|first|upper }}</div>{% endif %}
+          <div class="min-w-0"><h3 class="text-lg font-semibold">{{ student.full_name }}</h3><p class="mt-1 text-sm text-slate-400">{{ student.grade }}</p><p class="mt-3 text-sm leading-6 text-slate-300">{{ student.achievement_title }}</p><span class="mt-3 inline-flex rounded-full border border-amber-400/20 bg-amber-400/10 px-3 py-1 text-xs font-semibold text-amber-200">{{ student.score_or_rank }}</span></div>
+        </article>
+        {% empty %}<p class="text-slate-400">Iqtidorli o'quvchilar ro'yxati tez orada e'lon qilinadi.</p>{% endfor %}
+      </div>
+    </section>
+
+    <section id="ariza" class="mx-auto max-w-5xl px-5 py-14"><div class="glass rounded-3xl p-6 sm:p-8"><p class="section-label">Tezkor qabul</p><h2 class="mt-3 text-3xl font-black">Maktabga qabul so'rovnomasi</h2><form class="mt-8 space-y-4" method="POST" action="{% url 'school:submit_application' %}">{% csrf_token %}<input class="field" type="text" name="student_name" required placeholder="O'quvchining ismi va familiyasi"><input class="field" type="tel" name="phone" required placeholder="+998 90 123 45 67"><select class="field" name="grade" required>{% for value,label in application_form.fields.grade.choices %}<option value="{{ value }}">{{ label }}</option>{% endfor %}</select><button class="button w-full" type="submit">Tezkor ariza yuborish</button></form></div></section>
+
+    <section id="hujjatlar" class="mx-auto max-w-5xl px-5 py-14">
+      <div class="glass rounded-2xl p-6 sm:p-8">
+        <p class="section-label">Qabulga tayyorgarlik</p><h2 class="mt-3 text-3xl font-black">Qabul hujjatlari cheklisti</h2>
+        <p class="mt-3 text-sm leading-6 text-slate-400">Kerakli hujjatlarni belgilab, qabulga tayyorgarlik jarayonini kuzatib boring.</p>
+        <div class="mt-8 grid gap-8 md:grid-cols-2">
+          <div><h3 class="mb-4 text-lg font-semibold">1-sinfga qabul</h3><div class="space-y-3">
+            <label class="check-item"><input type="checkbox"><span>Tug'ilganlik haqidagi guvohnoma nusxasi</span></label>
+            <label class="check-item"><input type="checkbox"><span>086-U shaklidagi tibbiy ma'lumotnoma</span></label>
+            <label class="check-item"><input type="checkbox"><span>3×4 o'lchamdagi fotosurat</span></label>
+            <label class="check-item"><input type="checkbox"><span>Ota-ona pasporti nusxalari</span></label>
+          </div></div>
+          <div><h3 class="mb-4 text-lg font-semibold">O'qishni ko'chirish</h3><div class="space-y-3">
+            <label class="check-item"><input type="checkbox"><span>Tug'ilganlik haqidagi guvohnoma nusxasi</span></label>
+            <label class="check-item"><input type="checkbox"><span>086-U shaklidagi tibbiy ma'lumotnoma</span></label>
+            <label class="check-item"><input type="checkbox"><span>3×4 o'lchamdagi fotosurat</span></label>
+            <label class="check-item"><input type="checkbox"><span>Ota-ona pasporti nusxalari</span></label>
+            <label class="check-item"><input type="checkbox"><span>Avvalgi maktabdan o'quvchining shaxsiy hujjatlari</span></label>
+          </div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="status" class="mx-auto max-w-5xl px-5 py-14"><div class="glass rounded-3xl p-6 sm:p-8"><p class="section-label">Application status tracker</p><h2 class="mt-3 text-3xl font-black">Ariza holatini tekshirish</h2><form id="status-form" class="mt-8 flex flex-col gap-3 sm:flex-row"><input id="status-query" class="field" placeholder="MK-4601 yoki +998901234567" required><button class="button shrink-0 px-6 text-white">Tekshirish</button></form><div id="status-result" class="glass mt-5 hidden rounded-2xl border border-white/10 p-5"></div></div></section>
+
+    <section id="kutubxona" class="mx-auto max-w-7xl px-5 py-14"><div class="flex flex-wrap items-end justify-between gap-4"><div><p class="section-label">E-library</p><h2 class="mt-3 text-3xl font-black">Elektron kutubxona</h2></div><select id="book-filter" class="field max-w-xs"><option value="">Barcha fanlar</option>{% for subject in book_subjects %}<option value="{{ subject }}">{{ subject }}</option>{% endfor %}</select></div><div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">{% for book in books %}<article class="book-card glass lift h-full rounded-3xl p-6 sm:p-8" data-subject="{{ book.subject }}"><div class="flex h-44 items-center justify-center overflow-hidden rounded-xl bg-slate-900">{% if book.cover %}<img src="{{ book.cover.url }}" class="h-full w-full object-cover rounded-xl" alt="{{ book.title }}">{% else %}<div class="flex h-full w-full items-center justify-center text-sm text-slate-500">Muqova yuklanmagan</div>{% endif %}</div><h3 class="mt-4 font-bold">{{ book.title }}</h3><p class="mt-1 text-sm text-slate-400">{{ book.author }} · {{ book.subject }}</p><p class="mt-1 text-xs text-slate-500">{{ book.get_grade_category_display }} · {{ book.downloads }} yuklab olish</p><div class="mt-4 flex gap-2">{% if book.pdf %}<a class="button rounded-lg px-3 py-2 text-xs font-bold" href="{{ book.pdf.url }}" target="_blank" rel="noopener">Ko'rish</a><a class="rounded-lg border border-white/10 px-3 py-2 text-xs" href="{% url 'school:download_book' book.id %}">Yuklab olish</a>{% else %}<span class="text-xs text-slate-500">PDF yuklanmagan</span>{% endif %}</div></article>{% empty %}<div class="col-span-full py-8 text-center text-slate-400">Hozircha kitoblar kiritilmagan.</div>{% endfor %}</div></section>
+
+    <section id="ustozlar" class="mx-auto max-w-7xl px-5 py-14"><p class="section-label">Teachers & staff</p><h2 class="mt-3 text-3xl font-black">Bizning ustozlar va rahbariyat</h2><div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">{% for teacher in teachers %}    <article class="glass lift rounded-3xl p-6 sm:p-8 text-center">{% if teacher.image %}<img src="{{ teacher.image.url }}" class="mx-auto h-28 w-28 rounded-full object-cover" alt="{{ teacher.full_name }}">{% else %}<div class="mx-auto flex h-28 w-28 items-center justify-center rounded-full bg-indigo-500/20 text-4xl">👤</div>{% endif %}<h3 class="mt-4 font-bold">{{ teacher.full_name }}</h3><p class="text-sm text-indigo-300">{{ teacher.position }}</p><p class="mt-2 text-xs text-slate-400">{{ teacher.get_qualification_display }} · {{ teacher.experience }}</p><p class="mt-3 text-sm text-slate-400">{{ teacher.achievements }}</p></article>{empty}<p class="text-slate-400">Ustozlar ma'lumotlari tez orada qo'shiladi.</p>{% endfor %}</div></section>
+
+
+    <section id="murojaat" class="mx-auto max-w-4xl px-5 py-14">
+      <div class="glass rounded-2xl p-6 sm:p-8">
+        <p class="section-label">Fikringiz biz uchun muhim</p><h2 class="mt-3 text-3xl font-black">Taklif va mulohazalar</h2>
+        <p class="mt-3 text-sm leading-6 text-slate-400">Taklif, shikoyat yoki tashakkurnomangizni yuboring — murojaatingiz maktab ma'muriyatiga yetkaziladi.</p>
+        <form class="mt-7 grid gap-4 sm:grid-cols-2" method="post" action="{% url 'school:submit_feedback' %}">{% csrf_token %}
+          <input class="field" name="sender_name" maxlength="100" required autocomplete="name" placeholder="Ism va familiyangiz">
+          <input class="field" type="tel" name="phone" maxlength="50" required autocomplete="tel" placeholder="Telefon raqamingiz">
+          <select class="field sm:col-span-2" name="feedback_type" required><option value="">Murojaat turini tanlang</option><option value="taklif">Taklif</option><option value="shikoyat">Shikoyat</option><option value="tashakkur">Tashakkurnoma</option></select>
+          <textarea class="field sm:col-span-2" name="message" rows="5" required placeholder="Xabaringizni shu yerga yozing"></textarea>
+          <button class="button active:scale-[0.98] transition-all duration-150 sm:col-span-2" type="submit">Yuborish</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="xarita" class="mx-auto max-w-7xl px-5 py-14"><div class="mb-6 flex flex-wrap items-end justify-between gap-4"><div><p class="section-label">Manzil</p><h2 class="mt-3 text-3xl font-black">46-maktab xaritada</h2><p class="mt-2 text-slate-400">{% if map_info %}{{ map_info.address }}{% else %}Andijon hududi{% endif %}</p></div><a class="button rounded-xl px-5 py-3 font-bold" href="https://www.google.com/maps/search/?api=1&query=40.750000,72.350000" target="_blank" rel="noopener noreferrer">Google Xaritada ochish ↗</a></div><div class="glass overflow-hidden rounded-3xl p-2 shadow-2xl"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.6853!2d72.35!3d40.75!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDQ1JzAwLjAiTiA3MsKwMjEnMDAuMCJF!5e0!3m2!1suz!2s!4v1700000000000" class="h-[360px] w-full rounded-2xl border border-white/10" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="46-maktab Google xaritasi"></iframe></div></section>
+    <section id="galereya" class="mx-auto max-w-7xl px-5 py-14"><p class="section-label">Maktab hayoti</p><h2 class="mt-3 text-3xl font-black">Galereya</h2><div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">{% for image in gallery %}    <figure class="glass h-full overflow-hidden rounded-3xl p-2">{% if image.image %}<img src="{{ image.image.url }}" class="h-64 w-full object-cover rounded-xl" alt="{{ image.title }}" loading="lazy">{% else %}<div class="flex h-64 items-center justify-center bg-slate-800 text-slate-500">Rasm yuklanmagan</div>{% endif %}<figcaption class="p-4"><h3 class="font-bold">{{ image.title }}</h3>{% if image.description %}<p class="mt-1 text-sm text-slate-400">{{ image.description }}</p>{% endif %}</figcaption></figure>{% empty %}<div class="col-span-full py-8 text-center text-slate-400">Galereya rasmlari tez orada qo'shiladi.</div>{% endfor %}</div></section>
+    <footer class="mx-auto max-w-7xl px-5 pb-8 pt-10">
+      <div class="glass flex flex-col items-center justify-between gap-5 rounded-3xl px-6 py-6 text-center sm:flex-row sm:text-left">
+        <div><p class="text-sm font-black tracking-[.18em] text-white">46-MAKTAB</p><p class="mt-1 text-xs text-slate-500">Bilimdan katta kelajak sari.</p></div>
+        <div class="flex flex-wrap justify-center gap-3 text-xs text-slate-300">
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-2">👁 <strong class="counter" data-target="{{ visitor_count }}">0</strong><span>+</span> tashrif</span>
+          <span class="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-3.5 py-2 text-indigo-300">👥 <strong class="counter" data-target="{{ registered_users_count }}">0</strong><span>+</span> foydalanuvchi</span>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <div id="login-modal" class="modal-bg fixed inset-0 z-50 hidden items-center justify-center overflow-y-auto p-5">
+    <div class="glass w-full max-w-2xl rounded-3xl p-7 shadow-2xl sm:p-9">
+      <div class="flex items-center justify-between"><h2 class="text-2xl font-black">Tizimga kirish</h2><button type="button" onclick="closeLoginModal()" class="text-3xl leading-none text-slate-400 hover:text-white">×</button></div>
+      <form class="mt-6 grid gap-4" method="post" action="{% url 'school:user_login' %}">
+        {% csrf_token %}<input class="field" name="username" placeholder="Username yoki telefon" autocomplete="username" required><input class="field" name="password" type="password" placeholder="Parol" autocomplete="current-password" required>
+        <p class="text-sm text-slate-400">Hisobingiz yo'qmi? <button type="button" onclick="closeLoginModal();openRegisterModal()" class="text-indigo-300 hover:text-indigo-200">Ro'yxatdan o'tish</button></p>
+        <a href="/admin/" class="text-center text-xs text-slate-500 hover:text-indigo-300">Admin panelga kirish</a>
+        <button class="button w-full" type="submit">Kirish</button>
+      </form>
+    </div>
+  </div>
+  <div id="register-modal" class="modal-bg fixed inset-0 z-50 hidden items-center justify-center overflow-y-auto p-5">
+    <div class="glass w-full max-w-3xl rounded-3xl p-7 shadow-2xl sm:p-9">
+      <div class="flex items-center justify-between"><h2 class="text-2xl font-black">Ro'yxatdan o'tish</h2><button type="button" onclick="closeRegisterModal()" class="text-3xl leading-none text-slate-400 hover:text-white">×</button></div>
+      <form class="mt-6 grid gap-4 md:grid-cols-2" method="post" action="{% url 'school:register' %}">{% csrf_token %}<input class="field" name="full_name" placeholder="To'liq ism-familiya" required><input class="field" name="phone" placeholder="Telefon raqami" required><input class="field" name="username" placeholder="Username" autocomplete="username" required><input class="field" name="password" type="password" placeholder="Parol (kamida 8 belgi)" autocomplete="new-password" required><button class="button w-full md:col-span-2" type="submit">Ro'yxatdan o'tish</button><p class="text-center text-sm text-slate-400 md:col-span-2">Hisobingiz bormi? <button type="button" onclick="closeRegisterModal();openLoginModal()" class="text-indigo-300 hover:text-indigo-200">Kirish</button></p></form>
+    </div>
+  </div>
+
+  <script>
+    function openLoginModal(){document.getElementById('login-modal').classList.remove('hidden');document.getElementById('login-modal').classList.add('flex')}
+    function closeLoginModal(){document.getElementById('login-modal').classList.add('hidden');document.getElementById('login-modal').classList.remove('flex')}
+    function openRegisterModal(){document.getElementById('register-modal').classList.remove('hidden');document.getElementById('register-modal').classList.add('flex')}
+    function closeRegisterModal(){document.getElementById('register-modal').classList.add('hidden');document.getElementById('register-modal').classList.remove('flex')}
+    document.getElementById('status-form').addEventListener('submit',async event=>{
+      event.preventDefault();
+      const result=document.getElementById('status-result');
+      const query=document.getElementById('status-query').value.trim();
+      result.classList.remove('hidden');
+      result.textContent='Tekshirilmoqda...';
+      try {
+        const response=await fetch("{% url 'school:check_status' %}?q="+encodeURIComponent(query));
+        const data=await response.json();
+        if(!data.success){result.innerHTML='<p class="text-rose-300">'+data.message+'</p>';return}
+        const badgeClass={pending:'border-amber-300/30 bg-amber-500/20 text-amber-200',interview:'border-blue-300/30 bg-blue-500/20 text-blue-200',accepted:'border-emerald-300/30 bg-emerald-500/20 text-emerald-200',rejected:'border-rose-300/30 bg-rose-500/20 text-rose-200'}[data.status_code]||'border-slate-300/30 bg-slate-500/20 text-slate-200';
+        result.innerHTML='<div class="flex flex-wrap items-start justify-between gap-3"><div><p class="text-xs uppercase tracking-widest text-slate-400">Ariza kodi</p><h3 class="mt-1 text-xl font-black">'+data.id+'</h3></div><span class="rounded-full border px-3 py-1 text-sm '+badgeClass+'">'+data.status+'</span></div><div class="mt-5 grid gap-3 text-sm text-slate-300 sm:grid-cols-3"><p><span class="block text-xs text-slate-500">O‘quvchi</span>'+data.student_name+'</p><p><span class="block text-xs text-slate-500">Sinf</span>'+data.grade+'</p><p><span class="block text-xs text-slate-500">Ariza sanasi</span>'+data.created_at+'</p></div>';
+      } catch(error) {
+        result.innerHTML='<p class="text-rose-300">Tekshirish vaqtida xatolik yuz berdi.</p>';
+      }
+    });
+    document.getElementById('book-filter').addEventListener('change',event=>document.querySelectorAll('.book-card').forEach(card=>card.classList.toggle('hidden',event.target.value&&card.dataset.subject!==event.target.value)));
+    document.querySelectorAll('.check-item input[type="checkbox"]').forEach(checkbox=>{
+      checkbox.addEventListener('change',()=>checkbox.closest('.check-item').classList.toggle('is-checked',checkbox.checked));
+    });
+    document.querySelectorAll('.counter').forEach(counter=>{
+      const target=Number(counter.dataset.target)||0;
+      const duration=1400;
+      const start=performance.now();
+      const tick=now=>{
+        const progress=Math.min((now-start)/duration,1);
+        const eased=1-Math.pow(1-progress,3);
+        counter.textContent=Math.floor(target*eased).toLocaleString('uz-UZ');
+        if(progress<1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  </script>
+</body>
+</html>
