@@ -26,9 +26,9 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.staticfiles",
     "cloudinary_storage",
     "cloudinary",
+    "django.contrib.staticfiles",
     "school",
 ]
 
@@ -90,9 +90,10 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 STORAGES = {
     "default": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
@@ -100,19 +101,20 @@ STORAGES = {
 }
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.environ.get("MEDIA_ROOT", str(BASE_DIR / "media"))
+
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": os.getenv("CLOUDINARY_CLOUD_NAME"),
+    "API_KEY": os.getenv("CLOUDINARY_API_KEY"),
+    "API_SECRET": os.getenv("CLOUDINARY_API_SECRET"),
+}
+if not DEBUG and not all(CLOUDINARY_STORAGE.values()):
+    raise ImproperlyConfigured(
+        "Production muhitida CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY va "
+        "CLOUDINARY_API_SECRET o'rnatilishi shart."
+    )
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "school.CustomUser"
 LOGIN_URL = "school:home"
 LOGIN_REDIRECT_URL = "school:home"
 LOGOUT_REDIRECT_URL = "school:home"
-
-
-import os
-
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'tjqoqfhn'),
-    'API_KEY': os.getenv('CLOUDINARY_API_KEY', '973443764568118'),
-    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
-}
-
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
