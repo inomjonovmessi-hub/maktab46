@@ -27,6 +27,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "cloudinary_storage",
+    "cloudinary",
     "school",
 ]
 
@@ -40,6 +42,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
 
 ROOT_URLCONF = "maktab46.urls"
 TEMPLATES = [
@@ -102,3 +105,14 @@ AUTH_USER_MODEL = "school.CustomUser"
 LOGIN_URL = "school:home"
 LOGIN_REDIRECT_URL = "school:home"
 LOGOUT_REDIRECT_URL = "school:home"
+
+
+import os
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'tjqoqfhn'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY', '973443764568118'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
