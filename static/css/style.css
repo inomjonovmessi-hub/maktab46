@@ -125,6 +125,15 @@ textarea.field, .modal-bg textarea { height: auto; min-height: 120px; padding-to
   -webkit-backdrop-filter: blur(12px);
 }
 
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 1.25rem;
+}
+
+.nav-brand { flex: 0 0 auto; white-space: nowrap; }
+
 .nav-link {
   position: relative;
   flex: 0 0 auto;
@@ -182,13 +191,18 @@ textarea.field, .modal-bg textarea { height: auto; min-height: 120px; padding-to
 
 .nav-links {
   display: flex;
-  gap: 1.25rem;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(.65rem, 1.2vw, 1.25rem);
+  min-width: 0;
   overflow-x: auto;
   scrollbar-width: none;
 }
 
 .nav-links::-webkit-scrollbar { display: none; }
 .nav-brand { color: var(--text); }
+.nav-actions { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 15px; }
 .hero-section { position: relative; isolation: isolate; overflow: hidden; }
 .hero-title { background: linear-gradient(110deg, var(--text) 8%, #38bdf8 58%, #a78bfa 100%); background-clip: text; color: transparent; -webkit-background-clip: text; }
 .hero-glow { position: absolute; z-index: -1; width: 24rem; height: 24rem; border-radius: 50%; filter: blur(120px); opacity: .18; pointer-events: none; }
@@ -245,9 +259,13 @@ textarea.field, .modal-bg textarea { height: auto; min-height: 120px; padding-to
 :root[data-theme="light"] .text-emerald-100 { color: #065f46 !important; }
 :root[data-theme="light"] .modal-bg { background: rgba(15, 23, 42, .55); }
 
-@media (min-width: 1280px) {
-  .site-nav .mx-auto { position: relative; }
-  .nav-links { position: absolute; left: 50%; overflow: visible; transform: translateX(-50%); }
+@media (max-width: 1199px) {
+  .nav-inner { flex-wrap: wrap; }
+  .nav-links {
+    order: 3;
+    flex: 1 0 100%;
+    justify-content: flex-start;
+  }
 }
 
 @media (max-width: 640px) {
@@ -255,7 +273,12 @@ textarea.field, .modal-bg textarea { height: auto; min-height: 120px; padding-to
   .gallery-grid { gap: .65rem; }
   .gallery-title { font-size: .8rem; }
   .gallery-overlay { padding: 2rem .65rem .65rem; }
+  .nav-inner { gap: .75rem; }
+  .nav-brand { flex: 1 1 220px; gap: .5rem; min-width: 0; font-size: .75rem; letter-spacing: 0; white-space: normal; }
+  .nav-brand > span:first-child { width: 36px; height: 36px; }
+  .nav-actions { gap: 15px; margin-left: auto; }
   .nav-action { min-height: 38px; padding: 0 10px; font-size: .75rem; }
+  .nav-links { gap: 1rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
