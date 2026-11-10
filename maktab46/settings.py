@@ -119,3 +119,13 @@ AUTH_USER_MODEL = "school.CustomUser"
 LOGIN_URL = "school:home"
 LOGIN_REDIRECT_URL = "school:home"
 LOGOUT_REDIRECT_URL = "school:home"
+
+import os
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME', 'tjqoqfhn'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY', '973443764568118'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
