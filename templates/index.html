@@ -1,84 +1,7 @@
+{% extends "base.html" %}
 {% load static %}
-<!doctype html>
-<html lang="uz">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>46-maktab | Ta'lim maskani</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    :root{color-scheme:dark;scroll-behavior:smooth}
-    body{overflow-x:hidden;background:#0b0f19;color:#e2e8f0;font-family:Inter,ui-sans-serif,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-    .glass{background:rgba(17,24,39,.75);border:1px solid rgba(30,41,59,.8);border-radius:1rem!important;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);transition:transform .2s ease,border-color .2s ease}
-    .glass:hover{border-color:rgba(99,102,241,.4);transform:translateY(-4px)}
-    .button{display:inline-flex;align-items:center;justify-content:center;min-height:50px;background:linear-gradient(115deg,#4338ca,#3730a3);border:1px solid rgba(129,140,248,.2);border-radius:12px;font-weight:600;transition:all .15s ease}
-    .button:hover{background:linear-gradient(115deg,#4f46e5,#4338ca)}
-    .button:active{transform:scale(.98)}
-    .modal-bg button[type="submit"]{min-height:50px;border-radius:12px;background:linear-gradient(115deg,#4338ca,#3730a3);transition:all .15s ease}
-    .modal-bg button[type="submit"]:active{transform:scale(.98)}
-    .lift,.interactive{transition:transform .2s ease,border-color .2s ease}
-    .field,.modal-bg input,.modal-bg select,.modal-bg textarea{display:block;width:100%;height:54px;border:1px solid #1e293b;background:rgba(2,6,23,.55);color:#f8fafc;border-radius:14px;padding:0 16px;outline:0;transition:border-color .15s ease,box-shadow .15s ease}
-    textarea.field,.modal-bg textarea{height:auto;min-height:120px;padding-top:14px;padding-bottom:14px}
-    .field::placeholder,.modal-bg input::placeholder,.modal-bg textarea::placeholder{color:#64748b}
-    .field:focus,.modal-bg input:focus,.modal-bg select:focus,.modal-bg textarea:focus{border-color:#6366f1;box-shadow:0 0 0 2px rgba(99,102,241,.2)}
-    h1,h2{font-weight:700;letter-spacing:-.035em;background:linear-gradient(to right,#fff,#cbd5e1);-webkit-background-clip:text;background-clip:text;color:transparent}
-    h3{font-weight:650;letter-spacing:-.02em;color:#f8fafc}
-    .section-label{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border:1px solid rgba(99,102,241,.3);border-radius:999px;background:rgba(79,70,229,.08);color:#c7d2fe;font-size:.72rem;font-weight:600;letter-spacing:.06em}
-    .check-item{display:flex;align-items:flex-start;gap:12px;border:1px solid rgba(30,41,59,.8);border-radius:14px;background:rgba(2,6,23,.28);padding:14px 16px;color:#cbd5e1;transition:all .2s ease}
-    .check-item input{margin-top:3px;accent-color:#34d399}
-    .check-item.is-checked{border-color:rgba(52,211,153,.28);background:rgba(16,185,129,.06);color:#6ee7b7}
-    .check-item.is-checked span{text-decoration:line-through;text-decoration-color:rgba(110,231,183,.6)}
-    .map-container{overflow:hidden;border-radius:16px;box-shadow:0 20px 45px rgba(0,0,0,.35)}
-    .map-container iframe{display:block;width:100%;height:450px;border:0}
-    @media(max-width:640px){.map-container iframe{height:340px}}
-    .modal-bg{background:rgba(2,6,23,.86);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-    .modal-bg.flex>div{animation:modal-in .2s ease-out}
-    @keyframes modal-in{from{opacity:0;transform:scale(.98) translateY(4px)}to{opacity:1;transform:scale(1) translateY(0)}}
-    .gradient{color:#fff}
-    .counter{font-variant-numeric:tabular-nums}
-    .site-nav{position:sticky;top:0;z-index:30;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(11,15,25,.8);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
-    .nav-link{position:relative;padding:8px 0;color:#aab4c7;transition:color .2s ease}
-    .nav-link:after{position:absolute;right:0;bottom:0;left:0;height:2px;border-radius:999px;background:linear-gradient(90deg,#818cf8,#67e8f9);content:"";transform:scaleX(0);transform-origin:left;transition:transform .2s ease}
-    .nav-link:hover,.nav-link.is-active{color:#f8fafc}
-    .nav-link:hover:after,.nav-link.is-active:after{transform:scaleX(1)}
-    .nav-action{display:inline-flex;min-height:42px;align-items:center;justify-content:center;border:1px solid rgba(165,180,252,.2);background:linear-gradient(115deg,#4f46e5,#3730a3);padding:0 16px;color:#fff;transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
-    .nav-action:hover{transform:translateY(-1px);background:linear-gradient(115deg,#6366f1,#4f46e5);box-shadow:0 8px 24px rgba(99,102,241,.25)}
-    .hero-section{position:relative;isolation:isolate;overflow:hidden}
-    .hero-glow{position:absolute;z-index:-1;width:24rem;height:24rem;border-radius:50%;filter:blur(120px);opacity:.25;pointer-events:none}
-    .hero-glow-violet{top:-3rem;left:-5rem;background:#6366f1}
-    .hero-glow-blue{right:-5rem;bottom:-3rem;background:#06b6d4}
-    .hero-badge{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(129,140,248,.3);border-radius:999px;background:linear-gradient(110deg,rgba(79,70,229,.18),rgba(14,165,233,.1));padding:9px 14px;color:#dbeafe;font-size:.72rem;font-weight:700;letter-spacing:.14em;box-shadow:0 0 28px rgba(99,102,241,.14)}
-    .hero-badge-dot{width:7px;height:7px;border-radius:50%;background:#a5b4fc;box-shadow:0 0 12px rgba(165,180,252,.9)}
-    .hero-title{background:linear-gradient(110deg,#fff 8%,#bfdbfe 52%,#c4b5fd 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
-    .hero-cta{min-height:56px;padding:0 26px;box-shadow:0 0 25px rgba(99,102,241,.5);transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
-    .hero-cta:hover{transform:translateY(-2px);box-shadow:0 0 36px rgba(99,102,241,.62)}
-    .hero-card{border:1px solid rgba(255,255,255,.1);border-radius:24px;background:rgba(255,255,255,.03);box-shadow:0 28px 80px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.06);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
-    .program-card{border:1px solid rgba(148,163,184,.14);border-radius:16px;background:rgba(15,23,42,.48);padding:16px;transition:transform .2s ease,border-color .2s ease,background .2s ease}
-    .program-card:hover{transform:translateY(-3px);border-color:rgba(129,140,248,.38);background:rgba(30,41,59,.55)}
-    @media(prefers-reduced-motion:reduce){.hero-cta,.nav-action,.nav-link:after{transition:none}}
-  </style>
-</head>
-<body>
-  <nav class="site-nav">
-    <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4">
-      <a href="#bosh-sahifa" class="flex items-center gap-3 text-sm font-black tracking-[.12em] text-white">
-        <span class="flex h-10 w-10 items-center justify-center rounded-xl border border-indigo-300/20 bg-indigo-400/10 text-indigo-200">
-          <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6" aria-hidden="true"><path d="M3 10.5 12 4l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-9.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 10h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        </span>
-        <span>46-MAKTAB <span class="hidden text-slate-400 sm:inline">— TA'LIM MASKANI</span></span>
-      </a>
-      <div class="hidden items-center gap-5 text-sm text-slate-300 xl:flex">
-        <a href="#iqtidorlilar" class="nav-link">Iqtidorlilar</a><a href="#hujjatlar" class="nav-link">Qabul hujjatlari</a><a href="#kutubxona" class="nav-link">Kutubxona</a>
-        <a href="#ustozlar" class="nav-link">Ustozlar</a><a href="#status" class="nav-link">Ariza holati</a><a href="#murojaat" class="nav-link">Murojaat</a>
-      </div>
-      <div class="flex items-center gap-2">
-        <button type="button" onclick="openLoginModal()" class="rounded-xl px-3 py-2 text-sm font-semibold text-slate-300 hover:text-white">Kirish</button>
-        <button type="button" onclick="openRegisterModal()" class="button nav-action rounded-xl text-sm font-bold">Ro'yxatdan o'tish</button>
-        <a href="#ariza" class="button nav-action hidden rounded-xl text-sm font-bold sm:inline-flex">Ariza topshirish</a>
-      </div>
-    </div>
-  </nav>
 
+{% block content %}
   {% if messages %}<div class="fixed right-5 top-20 z-50 space-y-3">{% for message in messages %}<div class="rounded-xl border border-emerald-300/30 bg-emerald-500/20 px-5 py-4 text-sm text-emerald-100 shadow-xl">{{ message }}</div>{% endfor %}</div>{% endif %}
   <main>
     <section id="bosh-sahifa" class="hero-section mx-auto grid max-w-7xl gap-12 px-5 pb-20 pt-20 lg:grid-cols-[1.1fr_.9fr] lg:items-center lg:pb-24 lg:pt-24">
@@ -206,7 +129,28 @@
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.6853!2d72.35!3d40.75!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDQ1JzAwLjAiTiA3MsKwMjEnMDAuMCJF!5e0!3m2!1suz!2s!4v1700000000000" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="46-maktab Google xaritasi"></iframe>
       </div>
     </section>
-    <section id="galereya" class="mx-auto max-w-7xl px-5 py-14"><p class="section-label">Maktab hayoti</p><h2 class="mt-3 text-3xl font-black">Galereya</h2><div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">{% for image in gallery %}    <figure class="glass h-full overflow-hidden rounded-3xl p-2">{% if image.image %}<img src="{{ image.image.url }}" class="h-64 w-full object-cover rounded-xl" alt="{{ image.title }}" loading="lazy">{% else %}<div class="flex h-64 items-center justify-center bg-slate-800 text-slate-500">Rasm yuklanmagan</div>{% endif %}<figcaption class="p-4"><h3 class="font-bold">{{ image.title }}</h3>{% if image.description %}<p class="mt-1 text-sm text-slate-400">{{ image.description }}</p>{% endif %}</figcaption></figure>{% empty %}<div class="col-span-full py-8 text-center text-slate-400">Galereya rasmlari tez orada qo'shiladi.</div>{% endfor %}</div></section>
+    <section id="galereya" class="mx-auto max-w-7xl px-5 py-14">
+      <p class="section-label">Maktab hayoti</p>
+      <h2 class="mt-3 text-3xl font-black">Galereya</h2>
+      <div class="gallery-grid mt-8">
+        {% for image in gallery %}
+        {% if image.image %}
+        <figure class="gallery-card">
+          <button class="gallery-open" type="button" data-full-image="{{ image.image.url }}" aria-label="{{ image.title }} rasmini kattalashtirish">
+            <img src="{{ image.image.url }}" alt="{{ image.title }}" loading="lazy">
+            <span class="gallery-overlay"><span class="gallery-title">{{ image.title }}</span></span>
+          </button>
+        </figure>
+        {% endif %}
+        {% empty %}
+        <p class="col-span-2 py-8 text-center text-slate-400">Galereya rasmlari tez orada qo'shiladi.</p>
+        {% endfor %}
+      </div>
+    </section>
+    <div id="gallery-lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Galereya rasmi" hidden>
+      <button class="lightbox-close" type="button" aria-label="Rasmni yopish">&times;</button>
+      <img class="lightbox-image" src="" alt="">
+    </div>
     <footer class="mx-auto max-w-7xl px-5 pb-8 pt-10">
       <div class="glass flex flex-col items-center justify-between gap-5 rounded-3xl px-6 py-6 text-center sm:flex-row sm:text-left">
         <div><p class="text-sm font-black tracking-[.18em] text-white">46-MAKTAB</p><p class="mt-1 text-xs text-slate-500">Bilimdan katta kelajak sari.</p></div>
@@ -289,5 +233,4 @@
       requestAnimationFrame(tick);
     });
   </script>
-</body>
-</html>
+{% endblock %}
